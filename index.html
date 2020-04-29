@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="scripts/lib/p5.js"></script>
+    <script src="scripts/Board.js"></script>
+    <script src="scripts/sketch.js"></script>
+    <meta charset="utf-8">
+    <title>AI Semester Project</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="input">
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Maze Size (N)</span>
+                        </div>
+                        <input id="maze_size" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"># of Obstacle (K)</span>
+                        </div>
+                        <input id="obstacleNumber" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Step Size (M)</span>
+                        </div>
+                        <input id="stepSize" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Timeout</span>
+                        </div>
+                        <input id="timeout" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Population Size</span>
+                        </div>
+                        <input id="populationSize" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Probability of Mutation</span>
+                        </div>
+                        <input id="mutationProbability" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <select class="form-control">
+                    <option>Type</option>
+                  </select>
+                </div>
+
+                <div class="col">
+                    <button type="button" onclick="solveButtonClicked()" class="btn btn-primary btn-block">Solve</button>
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+        <div id="board" class="text-center">
+        </div>
+        <br>
+
+        <!-- <div id="output">
+            <div class="container testimonial-group">
+                <div class="row text-center flex-nowrap">
+                    <div class="col-sm-4" id="1"></div>
+                    <div class="col-sm-4" id="2"></div>
+                    <div class="col-sm-4" id="3"></div>
+                    <div class="col-sm-4" id="4"></div>
+                    <div class="col-sm-4" id="5"></div>
+                    <div class="col-sm-4" id="6"></div>
+                    <div class="col-sm-4" id="7"></div>
+                    <div class="col-sm-4" id="8"></div>
+                    <div class="col-sm-4" id="9"></div>
+                </div>
+            </div>
+
+        </div> -->
+
+
+
+
+        <!-- <script src="scripts/sketch.js"></script> -->
+</body>
+
+</html>
