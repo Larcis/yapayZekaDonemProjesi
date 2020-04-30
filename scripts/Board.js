@@ -12,8 +12,13 @@ class Board {
     }
 
     play(x, y) {
-        this.board[x][y] = this.current_player;
-        this.current_player = this.current_player == "X" ? "O" : "X";
+        if (this.isEmpty(x, y)) {
+            this.board[x][y] = this.current_player;
+            this.current_player = this.current_player == "X" ? "O" : "X";
+        }
+    }
+    clearCell(x, y) {
+        this.board[x][y] = " ";
     }
 
     isEmpty(x, y) {
@@ -48,6 +53,38 @@ class Board {
         return null;
     }
 
+    scoreFunc(a, b, c) {
+        let score = 0;
+        if (a == " " && b == c && b == "X") score = -1;
+        else if (b == " " && a == c && a == "X") score = -1;
+        else if (c == " " && a == b && b == "X") score = -1;
+
+        if (a == " " && b == c && b == "O") score = 1;
+        else if (b == " " && a == c && a == "O") score = 1;
+        else if (c == " " && a == b && b == "O") score = 1;
+        if (this.equals3_(a, b, c) && a == 'O') score += 200;
+        return score;
+    }
+    checkScore() {
+        let b = this.board;
+        let score = 0;
+        for (let i = 0; i < this.size - 2; i++) {
+            for (let j = 0; j < this.size - 2; j++) {
+                score += this.scoreFunc(b[i][j], b[i + 1][j], b[i + 2][j]);
+                score += this.scoreFunc(b[i][j], b[i][j + 1], b[i][j + 2]);
+                score += this.scoreFunc(b[i][j + 1], b[i + 1][j + 1], b[i + 2][j + 1]); //yatay2
+                score += this.scoreFunc(b[i + 1][j], b[i + 1][j + 1], b[i + 1][j + 2]); //dikey2
+                score += this.scoreFunc(b[i][j], b[i + 1][j + 1], b[i + 2][j + 2]); //duz capraz
+                score += this.scoreFunc(b[i + 2][j], b[i + 1][j + 1], b[i][j + 2]);
+                score += this.scoreFunc(b[i][j + 2], b[i + 1][j + 2], b[i + 2][j + 2]); //yatay3
+                score += this.scoreFunc(b[i + 2][j], b[i + 2][j + 1], b[i + 2][j + 2]); //dikey3
+            }
+        }
+        //console.log(score);
+        return score;
+    }
+
+
     drawBorders(p5) {
         p5.strokeWeight(3);
         p5.background(220);
@@ -80,43 +117,4 @@ class Board {
         }
     }
 
-}
-
-
-
-function minimax(board, depth, isMaximizing) {
-    let result = checkWinner();
-    if (result !== null) {
-        return scores[result];
-    }
-
-    if (isMaximizing) {
-        let bestScore = -Infinity;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                // Is the spot available?
-                if (board[i][j] == '') {
-                    board[i][j] = ai;
-                    let score = minimax(board, depth + 1, false);
-                    board[i][j] = '';
-                    bestScore = max(score, bestScore);
-                }
-            }
-        }
-        return bestScore;
-    } else {
-        let bestScore = Infinity;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                // Is the spot available?
-                if (board[i][j] == '') {
-                    board[i][j] = human;
-                    let score = minimax(board, depth + 1, true);
-                    board[i][j] = '';
-                    bestScore = min(score, bestScore);
-                }
-            }
-        }
-        return bestScore;
-    }
 }
