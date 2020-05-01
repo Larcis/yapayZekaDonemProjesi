@@ -1,8 +1,28 @@
-let current_best_xy = [];
+function best_move(board) {
+    // AI to make its turn
+    let bestScore = -Infinity;
+    let move;
+    for (let i = 0; i < board.size; i++) {
+        for (let j = 0; j < board.size; j++) {
+            // Is the spot available?
+            if (board.isEmpty(i, j)) {
+                board.play(i, j);
+                let score = minimax(board, 10, true);
+                board.clearCell(i, j);
+                if (score > bestScore) {
+                    bestScore = score;
+                    move = { i, j };
+                }
+            }
+        }
+    }
+    board.play(move.i, move.j);
+}
+
 
 function minimax(board, depth, isMaximizing) {
 
-    if (depth == 0) {
+    if (depth == 0 || board.checkWinner()) {
         let sc = board.checkScore();
         //console.log(sc);
         return sc;
@@ -18,11 +38,7 @@ function minimax(board, depth, isMaximizing) {
                     board.play(i, j);
                     let score = minimax(board, depth - 1, false);
                     board.clearCell(i, j);
-                    //bestScore = max(score, bestScore);
-                    if (score > bestScore) {
-                        bestScore = score;
-                        current_best_xy = [i, j];
-                    }
+                    bestScore = Math.max(score, bestScore);
                 }
             }
         }
@@ -36,11 +52,7 @@ function minimax(board, depth, isMaximizing) {
                     board.play(i, j);
                     let score = minimax(board, depth - 1, true);
                     board.clearCell(i, j);
-                    bestScore = min(score, bestScore);
-                    if (score < bestScore) {
-                        bestScore = score;
-                        current_best_xy = [i, j];
-                    }
+                    bestScore = Math.min(score, bestScore);
                 }
             }
         }
