@@ -8,6 +8,7 @@ function best_move(board) {
             if (board.isEmpty(i, j)) {
                 board.play(i, j);
                 let score = minimax(board, 10, true);
+                console.log("score" , score)
                 board.clearCell(i, j);
                 if (score > bestScore) {
                     bestScore = score;
@@ -21,7 +22,7 @@ function best_move(board) {
 
 
 function minimax(board, depth, isMaximizing) {
-
+    console.log(depth)
     if (depth == 0 || board.checkWinner()) {
         let sc = board.checkScore();
         //console.log(sc);

@@ -77,8 +77,8 @@ class Board {
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
                 if (this.board[i][j] != " ") {
-                    let x = w * i + w / 2;
-                    let y = h * j + h / 2;
+                    let y = w * i + w / 2;
+                    let x = h * j + h / 2;
                     if (this.board[i][j] == "O") {
                         noFill();
                         ellipse(x, y, w / 2);

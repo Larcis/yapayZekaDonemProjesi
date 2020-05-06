@@ -5,18 +5,23 @@ function setup() {
     var canvas = createCanvas(700, 700);
     canvas.parent("board");
     board = new Board(3);
-    board.drawBorders(this);
+    board.drawBorders();
     //new GameManager("", board);
     ai = new AI(board, "O");
+    /*ai.best_move();
+    game_winner = board.checkWinner();
+    if(game_winner){
+        alert("Player " + game_winner + " Wins.");
+    }*/
 }
 
 function draw() {
-    board.draw(this);
+    board.draw();
 }
 
 function mousePressed() {
-    let i = floor(mouseX / width * board.size);
-    let j = floor(mouseY / height * board.size);
+    let j = floor(mouseX / width * board.size);
+    let i = floor(mouseY / height * board.size);
     if (board.isEmpty(i, j)) {
         board.play(i, j);
         game_winner = board.checkWinner();
