@@ -11,16 +11,16 @@ function ai_vs_ai_loop() {
         game_winner = board.checkWinner();
         if (game_winner) {
             clearInterval(my_interval);
-            alert("Player " + game_winner + " Wins.");
+            show_info("Player " + game_winner);
             return;
         }
         ai1.best_move();
         game_winner = board.checkWinner();
         if (game_winner) {
             clearInterval(my_interval);
-            alert("Player " + game_winner + " Wins.");
+            show_info("Player " + game_winner);
         }
-    }, 50);
+    }, 1000);
 }
 
 function startButtonClicked() {
@@ -30,6 +30,7 @@ function startButtonClicked() {
     depth = document.getElementById("minimax_depth").value;
     let play_type = document.getElementById("play_type").value;
     let ai_first_checkbox = document.getElementById("ai_first_checkbox").checked;
+    let assistance = document.getElementById("assistance_checkbox").checked;
     //print(N, "-", depth, "-", play_type, "-", ai_first_checkbox);
     if (isNaN(N) || isNaN(depth)) {
         console.log("Please Enter Valid input");
@@ -42,12 +43,23 @@ function startButtonClicked() {
         if (ai_first_checkbox) {
             ai = new AI(board, "X", depth);
             ai.best_move();
+            if (assistance) {
+                ai1 = new AI(board, "O", depth, true);
+                ai1.best_move();
+            }
         } else {
             ai = new AI(board, "O", depth);
+            if (assistance)
+                ai1 = new AI(board, "X", depth, true);
         }
+        let last_suggestion = null;
+
         canvas.canvas.onmousedown = function() {
             let j = floor(mouseX / width * board.size);
             let i = floor(mouseY / height * board.size);
+            if (last_suggestion) {
+                board.drawBorders();
+            }
             if (board.isEmpty(i, j)) {
                 board.play(i, j);
                 game_winner = board.checkWinner();
@@ -55,11 +67,13 @@ function startButtonClicked() {
                     ai.best_move();
                     game_winner = board.checkWinner();
                     if (game_winner) {
-                        alert("Player " + game_winner + " Wins.");
+                        show_info("Player " + game_winner);
                         canvas.canvas.onmousedown = null;
+                    } else if (assistance) {
+                        last_suggestion = ai1.best_move();
                     }
                 } else {
-                    alert("Player " + game_winner + " Wins.");
+                    show_info("Player " + game_winner);
                     canvas.canvas.onmousedown = null;
                 }
             }
@@ -67,7 +81,18 @@ function startButtonClicked() {
     }
 
 }
-$(document).ready(function() {
-    $('#popup_winner').text('ZAAAA');
+
+function show_info(text) {
+    $('#popup_winner').text(text);
     $('#popup').modal('show');
-});
+}
+
+function ui_fix(selectObject) {
+    if (selectObject.value == "AI vs AI") {
+        $('#ai_first_check').hide();
+        $('#assistance_check').hide();
+    } else {
+        $('#ai_first_check').show();
+        $('#assistance_check').show();
+    }
+}

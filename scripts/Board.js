@@ -16,10 +16,6 @@ class Board {
         this.board[x][y] = this.current_player;
         this.current_player = this.current_player == "X" ? "O" : "X";
         this.num_of_plays++;
-        if (this.num_of_plays == this.size ** 2) {
-            console.log("Board is full, it is a tie i guess.")
-            return;
-        }
     }
     clearCell(x, y) {
         this.current_player = this.current_player == "X" ? "O" : "X";
@@ -76,9 +72,10 @@ class Board {
         let h = height / this.size;
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
+                let y = w * i + w / 2;
+                let x = h * j + h / 2;
                 if (this.board[i][j] != " ") {
-                    let y = w * i + w / 2;
-                    let x = h * j + h / 2;
+
                     if (this.board[i][j] == "O") {
                         noFill();
                         ellipse(x, y, w / 2);
@@ -86,9 +83,8 @@ class Board {
                         let xr = w / 4
                         line(x - xr, y - xr, x + xr, y + xr);
                         line(x + xr, y - xr, x - xr, y + xr);
-                    } else {
-                        rect(x - w / 2, y - h / 2, w, h, 20);
                     }
+
                 }
             }
         }

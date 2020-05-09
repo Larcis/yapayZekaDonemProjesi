@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -27,7 +28,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Board Size</span>
                         </div>
-                        <input id="board_size" value="5" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="board_size" value="3" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                 </div>
 
@@ -41,18 +42,30 @@
                 </div>
 
                 <div class="col">
-                    <select class="form-control" id="play_type">
+                    <select class="form-control" id="play_type" onchange="ui_fix(this)">
                     <option>Human vs AI</option>
                     <option>AI vs AI</option>
                   </select>
                 </div>
+                <br>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="ai_first_checkbox">
-                    <label class="form-check-label" for="defaultCheck1" style="color: azure;">
-                      AI First
-                    </label>
-                </div>
+                <row>
+                    <div class="form-check" id="ai_first_check">
+                        <input class="form-check-input" type="checkbox" value="" id="ai_first_checkbox">
+                        <label class="form-check-label" for="defaultCheck1" style="color: azure;">
+                          AI First
+                        </label>
+                    </div>
+
+                    <div class="form-check" id="assistance_check">
+                        <input class="form-check-input" type="checkbox" value="" id="assistance_checkbox">
+                        <label class="form-check-label" for="defaultCheck1" style="color: azure;">
+                          Assistance
+                        </label>
+                    </div>
+                </row>
+
+
 
                 <div class="col">
                     <button type="button" onclick="startButtonClicked()" class="btn btn-primary btn-block">Start</button>
@@ -73,20 +86,16 @@
 
 
         <!-- Modal -->
-        <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal animate__animated animate__jackInTheBox" id="popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">and Oscar Goes Tooooooo...</h5>
+                        <h5 class="modal-title">Winner is</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true" style="color: white;">&times;</span>
                   </button>
                     </div>
-                    <div class="modal-body" id="popup_winner">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div class="modal-body" id="popup_winner" style="text-align: center;">
                     </div>
                 </div>
             </div>

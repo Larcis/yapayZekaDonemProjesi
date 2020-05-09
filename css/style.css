@@ -28,3 +28,23 @@ body {
 input {
     width: 25%;
 }
+
+.modal {
+    width: 200px;
+    position: absolute;
+    left: 41.5%;
+    top: 31.31%;
+}
+
+.modal-content {
+    background: #393e46;
+    font-style: oblique;
+    font-family: monospace;
+    font-size: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.83);
+}
+
+.modal-header {
+    border-bottom: 0px;
+}

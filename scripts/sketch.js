@@ -8,6 +8,11 @@ function setup() {
 
 function draw() {
     frameRate(60);
-    if (board)
+    if (board) {
         board.draw();
+        if (board.num_of_plays == board.size ** 2) {
+            show_info("corona.");
+            board = null;
+        }
+    }
 }

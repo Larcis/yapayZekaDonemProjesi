@@ -1,8 +1,9 @@
 class AI {
-    constructor(board, player, depth) {
+    constructor(board, player, depth, is_assitance = false) {
         this.board = board;
         this.p = player;
         this.depth = depth;
+        this.is_assitance = is_assitance;
     }
 
     scoreFunc(a, b, c, turn) {
@@ -53,18 +54,18 @@ class AI {
     markVisited(i, j, color) {
         let w = width / this.board.size;
         let h = height / this.board.size;
-        let x = w * i + w / 2;
-        let y = h * j + h / 2;
+        let y = w * i + w / 2;
+        let x = h * j + h / 2;
         fill(...color);
-        rect(x - w / 2, y - h / 2, w, h, 30);
+        rect(x - w / 2, y - h / 2, w, h);
     }
     checkScore(turn) {
         let b = this.board.board;
         let score = 0;
-        //let str = "";
+        let str = "";
         for (let i = 0; i < this.board.size; i++) {
             for (let j = 0; j < this.board.size; j++) {
-                //str += b[i][j] + "|";
+                str += b[i][j] + "|";
                 if (j < this.board.size - 2)
                     score += this.scoreFunc(b[i][j], b[i][j + 1], b[i][j + 2], turn);
                 if (i < this.board.size - 2)
@@ -74,7 +75,7 @@ class AI {
                     score += this.scoreFunc(b[i + 2][j], b[i + 1][j + 1], b[i][j + 2], turn);
                 }
             }
-            //str += "\n";
+            str += "\n";
         }
         //console.log(str, score);
         return score;
@@ -88,7 +89,7 @@ class AI {
                 if (this.board.isEmpty(i, j)) {
                     this.board.play(i, j);
                     let score = this.minimax(this.depth, -Infinity, Infinity, true);
-                    score = score == Infinity ? 0 : score;
+                    //score = score == Infinity ? 0 : score;
                     //console.log("score" , score)
                     //this.board.board.forEach((aa)=>console.log(aa));
                     if (score > bestScore) {
@@ -100,10 +101,13 @@ class AI {
             }
         }
         //console.log(move, this.board, bestScore)
-        if (move && this.board.isEmpty(...move))
-            this.board.play(...move);
-        else
-            console.log("AI geçerli hamle bulamadı.");
+        if (move && this.board.isEmpty(...move)) {
+            if (this.is_assitance) {
+                this.markVisited(...move, [255, 255, 0]);
+                return move;
+            } else
+                this.board.play(...move);
+        }
     }
 
 
