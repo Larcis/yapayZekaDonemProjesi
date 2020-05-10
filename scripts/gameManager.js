@@ -31,7 +31,6 @@ function startButtonClicked() {
     let play_type = document.getElementById("play_type").value;
     let ai_first_checkbox = document.getElementById("ai_first_checkbox").checked;
     let assistance = document.getElementById("assistance_checkbox").checked;
-    //print(N, "-", depth, "-", play_type, "-", ai_first_checkbox);
     if (isNaN(N) || isNaN(depth)) {
         console.log("Please Enter Valid input");
         return;
@@ -82,11 +81,13 @@ function startButtonClicked() {
 
 }
 
+//showing winner modal
 function show_info(text) {
     $('#popup_winner').text(text);
     $('#popup').modal('show');
 }
 
+//hiding the ai first and assistance checkbox for game type selection
 function ui_fix(selectObject) {
     if (selectObject.value == "AI vs AI") {
         $('#ai_first_check').hide();

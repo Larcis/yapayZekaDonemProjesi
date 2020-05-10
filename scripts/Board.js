@@ -7,22 +7,24 @@ class Board {
                 this.board[i].push(" ");
             }
         }
-        this.size = N;
-        this.current_player = "X";
-        this.num_of_plays = 0;
+        this.size = N; //the width and height of the board
+        this.current_player = "X"; // current turn
+        this.num_of_plays = 0; // number of plays
     }
 
+    //fill x, y coordinates in board with current players symbol and change turn
     play(x, y) {
-        this.board[x][y] = this.current_player;
-        this.current_player = this.current_player == "X" ? "O" : "X";
-        this.num_of_plays++;
-    }
+            this.board[x][y] = this.current_player;
+            this.current_player = this.current_player == "X" ? "O" : "X";
+            this.num_of_plays++;
+        }
+        //clear a played cell, again change the turn
     clearCell(x, y) {
-        this.current_player = this.current_player == "X" ? "O" : "X";
-        this.board[x][y] = " ";
-        this.num_of_plays--;
-    }
-
+            this.current_player = this.current_player == "X" ? "O" : "X";
+            this.board[x][y] = " ";
+            this.num_of_plays--;
+        }
+        //check if cell in board is empty
     isEmpty(x, y) {
         if (x < this.size && y < this.size && x >= 0 && y >= 0)
             return this.board[x][y] === " ";
@@ -33,6 +35,8 @@ class Board {
         return (a == b && b == c && a != " ");
     }
 
+    //check whole board to see if there is a winner
+    //three same symbols in a row or in a column or in diagonal is assumed as win 
     checkWinner() {
         let b = this.board;
         for (let i = 0; i < this.size - 2; i++) {
@@ -55,7 +59,7 @@ class Board {
         return null;
     }
 
-
+    //drawing the board lines, these lines seperates cell each other
     drawBorders() {
         strokeWeight(3);
         background(220);
@@ -67,6 +71,7 @@ class Board {
         }
     }
 
+    //drawing the board cells
     draw() {
         let w = width / this.size;
         let h = height / this.size;
