@@ -19,31 +19,51 @@ class AI {
         else if (numofs[op] == 3) return -20000000; // opponent wins
         switch (numofs[" "]) {
             case 0: //no blanks
-                if (numofs[mp] == 2) return 10000; //opponent dodged me
+                if (numofs[mp] == 2) {
+                    //console.log("i got point from numofs[mp] == 2 -100000")
+                    return -100000;
+                } //opponent dodged me
                 else {
-                    return -10000; //i dodged opponent
+                    //console.log("i got point from else numofs[mp] == 2 100000")
+                    return 100000; //i dodged opponent
                 }
             case 1: //1 blank
                 if (numofs[mp] == 2) {
-                    if (turn)
+                    if (turn) {
+                        //console.log("i got point from numofs[mp] == 2 and turn 5000000")
                         return 5000000; //1 blank and 2 of my characters, if its my turn i m gonna win
-                    else
-                        return 50000
+                    } else {
+                        //console.log("i got point from numofs[mp] == 2 and !turn 12500")
+                        return 12500
+                    }
                 } else if (numofs[op] == 2) {
-                    if (!turn)
+                    if (turn) {
+                        //console.log("i got point from numofs[op] == 2 and !turn -5000000")
                         return -5000000;
-                    else
-                        return -50000
+                    } else {
+                        //console.log("i got point from numofs[op] == 2 and !turn -12500")
+                        return -12500
+                    }
                 } else { // there is one from every possible char
-                    if (b == mp)
-                        return 5000; //taking center cell is important
-                    else if (b == op)
-                        return -5000;
-                    else return 0;
+                    if (b == mp) {
+                        //console.log("i got point from else in case 1 b == mp 2")
+                        return 20; //taking center cell is important
+                    } else if (b == op) {
+                        //console.log("i got point from else in case 1 b == op 1")
+                        return 1;
+                    } else {
+                        //console.log("i got point from else in case 1 else 1")
+                        return -1;
+                    }
                 };
             case 2:
-                if (numofs[mp] == 1) return 5;
-                else return -5000;
+                if (numofs[mp] == 1) {
+                    //console.log("i got point from case 2 numofs[mp] == 1 1")
+                    return 1;
+                } else {
+                    //console.log("i got point from case 2 numofs[mp] == 1 -1")
+                    return -1;
+                }
             case 3:
                 return 0; //three blanks, no point
         }
@@ -58,11 +78,11 @@ class AI {
     }
     checkScore(turn) { //go through the board with a 3*3 filter and send every possible triplet to score function
         let b = this.board.board;
-        let score = 0;
-        let str = "";
+        var score = 0;
+        //let str = "";
         for (let i = 0; i < this.board.size; i++) {
             for (let j = 0; j < this.board.size; j++) {
-                str += b[i][j] + "|";
+                //str += b[i][j] + "|";
                 if (j < this.board.size - 2)
                     score += this.scoreFunc(b[i][j], b[i][j + 1], b[i][j + 2], turn);
                 if (i < this.board.size - 2)
@@ -72,8 +92,9 @@ class AI {
                     score += this.scoreFunc(b[i + 2][j], b[i + 1][j + 1], b[i][j + 2], turn);
                 }
             }
-            str += "\n";
+            //str += "\n";
         }
+        //console.log(str, score);
         return score;
     }
 
@@ -86,7 +107,8 @@ class AI {
                     this.board.play(i, j);
                     let score = this.minimax(this.depth, -Infinity, Infinity, true); //find current possible moves score with minimax algorithm
                     //score = score == Infinity ? 0 : score;
-                    //this.board.board.forEach((aa)=>console.log(aa));
+                    //this.board.board.forEach((aa) => console.log(aa));
+                    //console.log(score);
                     if (score > bestScore) {
                         bestScore = score;
                         move = [i, j];
@@ -101,6 +123,7 @@ class AI {
                 return move;
             } else
                 this.board.play(...move);
+            //console.log(bestScore)
         }
     }
 
@@ -117,9 +140,9 @@ class AI {
         let winner = this.board.checkWinner()
         if (depth == 0 || winner) {
             if (winner == this.p)
-                return 20000000;
+                return 20000000000;
             else if (winner)
-                return -20000000;
+                return -20000000000;
             return this.checkScore(is_maximizing);;
         }
 

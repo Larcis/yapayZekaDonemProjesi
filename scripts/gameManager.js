@@ -39,19 +39,20 @@ function startButtonClicked() {
         ai_vs_ai_setup();
         ai_vs_ai_loop();
     } else {
+
+        let last_suggestion = null;
         if (ai_first_checkbox) {
             ai = new AI(board, "X", depth);
             ai.best_move();
             if (assistance) {
                 ai1 = new AI(board, "O", depth, true);
-                ai1.best_move();
+                last_suggestion = ai1.best_move();
             }
         } else {
             ai = new AI(board, "O", depth);
             if (assistance)
                 ai1 = new AI(board, "X", depth, true);
         }
-        let last_suggestion = null;
 
         canvas.canvas.onmousedown = function() {
             let j = floor(mouseX / width * board.size);

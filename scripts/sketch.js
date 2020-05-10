@@ -11,7 +11,7 @@ function draw() {
     if (board) {
         board.draw();
         if (board.num_of_plays == board.size ** 2) {
-            show_info("corona.");
+            show_info("It is a tie.");
             board = null;
         }
     }
